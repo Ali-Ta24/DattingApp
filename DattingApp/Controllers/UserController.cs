@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DattingApp.Controllers
 {
@@ -19,17 +20,15 @@ namespace DattingApp.Controllers
             _context = context;
         }
         [HttpGet]
-        public ActionResult<IEnumerable<AppUser>> GetUsers()
+        public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
-            var users = _context.User.ToList();
-            return users;
+            return await _context.User.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public ActionResult<AppUser> GetUser(int id)
+        public async Task<ActionResult<AppUser>> GetUser(int id)
         {
-            var user = _context.User.Find(id);
-            return user;
+            return await _context.User.FindAsync(id);
         }
     }
 }
