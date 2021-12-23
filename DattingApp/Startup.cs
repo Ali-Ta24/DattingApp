@@ -20,9 +20,9 @@ namespace DattingApp
     {
         private readonly IConfiguration _config;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration config)
         {
-            _config = configuration;
+            _config = config;
         }
 
       
