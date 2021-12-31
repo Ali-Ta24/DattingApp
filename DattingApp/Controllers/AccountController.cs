@@ -26,7 +26,7 @@ namespace DattingApp.Controllers
             if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
 
             using var hmac = new HMACSHA512();
-            
+
             var user = new AppUser
             {
                 UserName = registerDto.Username.ToLower(),
@@ -36,6 +36,22 @@ namespace DattingApp.Controllers
 
             _context.User.Add(user);
             await _context.SaveChangesAsync();
+
+            return user;
+        }
+
+        [HttpPost("Login")]
+        public async Task<ActionResult<AppUser>> Login(LoginDto loginDto)
+        {
+            var user = await _context.User.SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
+            if (user == null) return Unauthorized("Invalid username");
+
+            using var hmac = new HMACSHA512(user.PasswordSalt);
+            var ComputeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+
+            for (int i = 0; i < ComputeHash.Length; i++){
+                if (ComputeHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
+            }
 
             return user;
         }
