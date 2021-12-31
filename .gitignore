@@ -5,6 +5,10 @@
 
 # ssl
 ssl
+
+# Visual Studio code cache/options directory
+.vscode/
+
 # User-specific files
 *.rsuser
 *.suo
