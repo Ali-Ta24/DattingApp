@@ -36,6 +36,10 @@ namespace DattingApp
         {
             services.AddApplicationServices(_config);
             services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DattingApp", Version = "v1" });
+            });
             services.AddCors();
             services.AddIdentityServices(_config);
         }
