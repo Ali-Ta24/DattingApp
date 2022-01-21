@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { empty, Observable } from 'rxjs';
-import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
 
 @Component({
@@ -13,9 +11,12 @@ export class NavComponent implements OnInit {
   model: any = {};
 
   constructor(public accountService: AccountService) {
-   }
+  }
 
   ngOnInit(): void {
+    if(localStorage.key(0)===null){
+      this.logout();
+    }
   }
 
   login() {
