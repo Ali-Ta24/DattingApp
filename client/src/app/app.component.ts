@@ -11,7 +11,6 @@ import { AccountService } from './_services/account.service';
 })
 export class AppComponent implements OnInit {
   title = 'The Datting App';
-  users: any;
 
   constructor(private accountService : AccountService) { }
 
